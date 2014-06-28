@@ -55,9 +55,14 @@ function setGeolocation() {
     var geolocation = window.navigator.geolocation.watchPosition(
 
             function ( position ) {
+
                 latitude = position.coords.latitude;
                 longitude = position.coords.longitude;
                 accuracy = position.coords.accuracy;
+
+                // Implement accuracy check
+                // if(accuracy > minPositionAccuracy) return;
+                  
 
                 // new
                 currentPosition = new LatLon(position.coords.latitude, position.coords.longitude);

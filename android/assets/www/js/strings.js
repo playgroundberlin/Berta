@@ -6,6 +6,7 @@
     var locationDelay = 10000; // wait until playback (default: 20000)
     var UDPSendDelay = 500;
     latitude, longitude = 0;
+    var minPositionAccuracy = 30;
 
 ///////////////////////////////////////////////////////////////////////////////
 
