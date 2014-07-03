@@ -22,8 +22,9 @@ function trackHeading() {
 }
 
 function headingUpdate(heading) {
-  console.log(heading.trueHeading);
   currentHeading = heading.trueHeading >= 0 ? Math.round(heading.trueHeading) : Math.round(heading.magneticHeading);
+  currentHeading += 90;
+
   updateScreen();
   updateDisplay();
 
@@ -73,7 +74,7 @@ function trackGeolocation() {
       heading = position.coords.heading;
 
       // Implement accuracy check
-      // if(accuracy > minPositionAccuracy) return;
+      // if (accuracy > minPositionAccuracy) return;
 
 
       // new

@@ -23,9 +23,9 @@ var tours = {
 		[52.47942169, 13.43147278, '/berta/pauline-andres.mp3', 'Pauline Andrès', 'Fuck you french girl', '']
 	],
 	"TESTMODE": [
-	  [52.486732,13.364793, '/berta/test1.mp3', 'Test', 'Schöneberg 1', ''],
-		[52.485177,13.364793, '/berta/test2.mp3', 'Test', 'Schöneberg 2', ''],
-		[52.485432,13.363447, '/berta/test3.mp3', 'Test', 'Schöneberg 3', '']
+	  [52.485425,13.362518, '/berta/test1.mp3', 'Test', 'Schöneberg 1', ''],
+		[52.486471,13.362272, '/berta/test2.mp3', 'Test', 'Schöneberg 2', ''],
+		[52.486033,13.363581, '/berta/test3.mp3', 'Test', 'Schöneberg 3', '']
 	],
 	"MAERCHENBRUNNEN": [
 		[52.528141,13.432889, '/berta/koletzki.mp3', 'Oliver Koletzki feat. Fran', 'Warschauer Strasse', ''],

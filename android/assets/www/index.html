@@ -54,9 +54,6 @@
   <script type="text/javascript" charset="utf-8" src="js/latlon.js"></script>
 
   <script type="text/javascript" charset="utf-8">
-  // Wait for Cordova to load
-  document.addEventListener("deviceready", onDeviceReady, false);
-
   var watchID = null;
   var headID = null;
 
@@ -67,6 +64,9 @@
     initRoute("NORMAL"); // load waypoints to array
     start();
   }
+
+  // Wait for Cordova to load
+  document.addEventListener("deviceready", onDeviceReady, false);
 
   function toggle() {
     $('#debug').toggle();
