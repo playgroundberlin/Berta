@@ -2,7 +2,7 @@
 
     var latitude, longitude, degreesOfDiff, accuracy, heading, currentHeading, destinationBearing, currentPosition, destinationPosition, currentDist, currentDir, bearing, result, artist, title, soundLat, soundLon;
     var next = 0; // first soundpoint
-    var distLimit = 5; // limit to play sounds
+    var distLimit = 15; // limit to play sounds
     var locationDelay = 10000; // wait until playback (default: 20000)
     var UDPSendDelay = 500;
     latitude, longitude = 0;
@@ -10,10 +10,10 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-	ISPLAYING = new Boolean(false);
-	ONLOCATION = new Boolean(false);
-	GOODBYE = new Boolean(false);
-	TRIPOVER = new Boolean(false);
+	ISPLAYING = false;
+	ONLOCATION = false;
+	GOODBYE = false;
+	TRIPOVER = false;
 	var my_media = null;
 	var mediaTimer = null;
 

@@ -1,8 +1,5 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 
-function onDeviceReady() {
-}
-
 function playAudio(src) {
     if(ISPLAYING == false) {
     my_media = new Media(src, onSuccess, onError);
@@ -24,7 +21,7 @@ var mediaTimer = setInterval(function() {
             }
         },
         function(e) {
-            console.log("Error getting pos=" + e);   
+            console.log("Error getting pos=" + e);
         }
     );
 }}, 1000);
@@ -52,8 +49,8 @@ function stopAudio() {
                 updateDisplay();
                 $('#meters').show();
                 $('#pointer').show();
-                }, locationDelay);       
-            
+                }, locationDelay);
+
         } else {
             ISPLAYING = true;
             TRIPOVER = true;
@@ -63,10 +60,4 @@ function stopAudio() {
             console.log("Trip is over!");
         }
     }
-}
-
-function onSuccess() {
-}
-
-function onError(error) {
 }
