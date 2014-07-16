@@ -430,6 +430,8 @@ if (typeof String.prototype.trim == 'undefined') {
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 if (!window.console) window.console = { log: function() {} };
+
+
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 /*  Geodesy representation conversion functions (c) Chris Veness 2002-2012                        */
 /*   - www.movable-type.co.uk/scripts/latlong.html                                                */
