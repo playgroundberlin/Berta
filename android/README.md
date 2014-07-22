@@ -44,6 +44,12 @@ To run a on a device or a configured emulator, use:
 4. Go to "Emulator Control"
 5. Here you can send location events etc.
 
+### Using the Emulator Console
+
+1. Launch your application (using emulator)
+2. Connect to the console: `telnet localhost 5554`
+3. For a a list of available commands, type `help` and/or see the [online documentation](http://developer.android.com/tools/devices/emulator.html#console)
+
 ## More
 
 The Cordova developer tools support a few more useful commands:
