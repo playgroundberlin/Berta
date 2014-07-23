@@ -97,12 +97,30 @@
   });
 
   var PlayerScreen = React.createClass({
+    getInitialState: function () {
+      return {playing: false};
+    },
+    play: function () {},
+    pause: function () {},
+    stop: function () {},
     render: function () {
       var props = this.props;
       return React.DOM.div({
-        className: 'screen player',
-        onClick: props.handleContinue
-      });
+        className: 'screen player'
+      }, [
+        React.DOM.h2({}, text(props.messages.voila, props.info)),
+        React.DOM.div({}, [
+          React.DOM.a({
+            onClick: function () {}
+          }, this.state.playing ? 'Pause' : 'Play'),
+          React.DOM.a({
+            onClick: function () {}
+          }, 'Rewind'),
+          React.DOM.a({
+            onClick: props.handleContinue
+          }, 'Weiter geht\'s')
+        ])
+      ]);
     }
   });
 
@@ -125,10 +143,8 @@
       });
     },
     handleTrackingUpdate: function (distance, direction) {
-      this.setState({
-        distance: distance,
-        direction: direction
-      });
+      if (this.state.mode !== Navigator.NAVIGATING) return;
+      this.props.hardware.send('' + Math.round(direction));
     },
     handleAtDestination: function (info) {
       this.setState({mode: Navigator.ANNOUNCE});
@@ -158,7 +174,8 @@
 
       props = this.props;
       state = this.state;
-      mode = state.mode;
+
+      mode = this.state.mode;
 
       if (mode === Navigator.LAUNCHED) {
         return NotificationScreen({
@@ -174,7 +191,7 @@
       } else if (mode === Navigator.PLAY) {
         return PlayerScreen({
           info: state.info,
-          message: text(props.messages.voila, state.info),
+          messages: props.messages,
           handleContinue: function () {
             navigator.setState({mode: Navigator.CONTINUE});
           }

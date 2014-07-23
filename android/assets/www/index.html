@@ -27,7 +27,6 @@
   <script src="js/mustache.js"></script>
 
   <!-- Application -->
-  <script src="js/audioplayer.js"></script>
   <script src="js/gps-tracker.js"></script>
   <script src="js/config.js"></script>
   <script src="js/berta.js"></script>
@@ -46,9 +45,8 @@
 
       var tour = TOURS['default']; // default, test etc. (see config.js)
 
-      // var hardware = new UDPClient(HWIP, HWPORT);
+      var hardware = new UDPClient(HWIP, HWPORT);
       var tracker = new GPSTracker();
-      var player = new AudioPlayer();
 
       // Wake up Berta
 
@@ -60,9 +58,8 @@
 
       React.renderComponent(App({
         messages: MESSAGES,
-        // hardware: hardware,
+        hardware: hardware,
         tracker: tracker,
-        player: player,
         berta: berta
       }), root);
 
