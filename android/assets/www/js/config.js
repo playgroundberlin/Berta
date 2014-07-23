@@ -4,6 +4,10 @@ var SDPATH = '/storage/extSdCard'; // Samsung Galaxy
 // var SDPATH = '/mnt/sdcard'; // Vodafone
 // var SDPATH = '/mnt/sdcard2'; // Scholl Tablet
 
+// Raspberry Pi config (hardware interface, comm. via UDP)
+
+var HWIP = '192.168.42.10';
+var HWPORT = 50000;
 
 // Tour places (lat, lon, path to mp3, artist, title, comment)
 

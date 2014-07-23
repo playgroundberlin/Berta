@@ -1,32 +1,48 @@
 (function (exports) {
   'use strict';
 
-  /** Berta's (user inter)face:
-   *
-   * Component structure
-   *   - Navigator
-   *     - CompassScreen
-   *     - NotificationScreen
-   *     - PlayerScreen
-   *   - Debugger
+  /**
+   * Utility functions
    */
 
-  // function say(msg, ctx) {
-  //   if (Object.prototype.toString.call(msg) === '[object Array]') {
-  //     msg = msg[Math.floor(Math.random() * msg.length)];
-  //   }
-  //   // textdiv.text(t(msg, ctx));
-  // }
-  //
-  // say(MESSAGES.disoriented); // no signal yet
+  // Maps a value from one range into another:
+  // scale(150, [100, 200], [0, 1]) // => 0.5
+  function scale(num, range1, range2) {
+    var normalized = ((num - range1[0]) / (range1[1] - range1[0]));
+    return normalized * (range2[1] - range2[0]) + range2[0];
+  }
 
-  var STATES = {
-    NAVIGATING: 0,
-    ANNOUNCE:   1,
-    PLAY:       2,
-    CONTINUE:   3,
-    FINISHED:   4
-  };
+  // Retrieves a random element from an array:
+  // sample([0, 1, 2, 3, 4, 5]) // => 0 or 1 or …
+  function sample(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  // Provides template rendering/string interpolation:
+  // render('Hello {{name}}!', {name: 'world'}) // => 'Hello World!'
+  function render(template, context) {
+    return Mustache.render(template, context);
+  }
+
+  // Renders a text message, filling in placeholders with values from context.
+  // If there are multiple variants - i.e. message is an array - selects one
+  // randomly.
+  function text(message, context) {
+    if (Array.isArray(message)) message = sample(message);
+    return render(message, context);
+  }
+
+  /**
+   * Berta's (user inter)face:
+   *
+   * Component structure
+   *   - App
+   *     - Navigator
+   *       - CompassScreen
+   *       - NotificationScreen
+   *       - PlayerScreen
+   *     - Debugger
+   */
 
   var CompassScreen = React.createClass({
     getInitialState: function () {
@@ -55,8 +71,7 @@
             key: 'compass-screen-compass-needle',
             className: 'compass-needle',
             style: {
-              '-webkit-transform': 'rotate(' + (state.direction || 0) + 'deg)',
-              'display': (typeof state.direction !== null)
+              '-webkit-transform': 'rotate(' + (state.direction || 0) + 'deg)'
             },
             src: 'img/needle.png'
           })
@@ -69,23 +84,45 @@
     }
   });
 
-  // var NotificationScreen = React.createClass({});
-  // var PlayerScreen = React.createClass({});
+  var NotificationScreen = React.createClass({
+    render: function () {
+      var props = this.props;
+      return React.DOM.div({
+        className: 'screen notification',
+        onClick: props.handleContinue || (function noop() {})
+      }, [
+        React.DOM.h2({}, props.message)
+      ]);
+    }
+  });
+
+  var PlayerScreen = React.createClass({
+    render: function () {
+      var props = this.props;
+      return React.DOM.div({
+        className: 'screen player',
+        onClick: props.handleContinue
+      });
+    }
+  });
 
   // Navigator state machine:
-  //   o-> NAVIGATING -> ANNOUNCE -> PLAY -> FINISHED
-  //       ^                            |
-  //       +-------- CONTINUE <---------+
   //
-  // distance, direction, position, heading, sound info
+  //   o-> LAUNCHED -> NAVIGATING -> ANNOUNCE -> PLAY -> FINISHED
+  //                   ^                            |
+  //                   +-------- CONTINUE <---------+
+  //
 
   var Navigator = React.createClass({
     getInitialState: function () {
-      return {};
+      return {mode: Navigator.LAUNCHED};
     },
     handleNewDestination: function (info) {
       console.info('Als Nächstes: %s - %s', info.artist, info.title);
-      // notification screen, wait for tap
+      this.setState({
+        mode: Navigator.NAVIGATING,
+        info: info
+      });
     },
     handleTrackingUpdate: function (distance, direction) {
       this.setState({
@@ -94,13 +131,10 @@
       });
     },
     handleAtDestination: function (info) {
-      // Show announcement,
-      // wait for tap,
-      // play sound,
-      // continue tour (next())
+      this.setState({mode: Navigator.ANNOUNCE});
     },
     handleTourFinished: function () {
-      // show "Bring me home" notification
+      this.setState({mode: Navigator.FINISHED});
     },
     componentDidMount: function () {
       var berta = this.props.berta;
@@ -117,34 +151,62 @@
       berta.off('finish', this.handleTourFinished);
     },
     render: function () {
-      var props, state;
+      var berta, navigator, props, state, mode;
+
+      berta = this.props.berta;
+      navigator = this;
 
       props = this.props;
-      state = this.state.state;
+      state = this.state;
+      mode = state.mode;
 
-      if (state === Navigator.ANNOUNCE) {
-        // render sound notification
-      } else if (state === Navigator.PLAY) {
-        // render player
-      } else if (state === Navigator.CONTINUE) {
-        // render notification screen
-      } else if (state === Navigator.FINISHED) {
-        // render notification screen
-        // ({onClick: function () {}})
+      if (mode === Navigator.LAUNCHED) {
+        return NotificationScreen({
+          message: text(props.messages.disoriented)
+        });
+      } else if (mode === Navigator.ANNOUNCE) {
+        return NotificationScreen({
+          message: text(props.messages.announcement),
+          handleContinue: function () {
+            navigator.setState({mode: Navigator.PLAY});
+          }
+        });
+      } else if (mode === Navigator.PLAY) {
+        return PlayerScreen({
+          info: state.info,
+          message: text(props.messages.voila, state.info),
+          handleContinue: function () {
+            navigator.setState({mode: Navigator.CONTINUE});
+          }
+        });
+      } else if (mode === Navigator.CONTINUE) {
+        return NotificationScreen({
+          message: text(props.messages.proceed),
+          handleContinue: function () {
+            berta.next(); // proceed with the tour (triggers 'goto')
+          }
+        });
+      } else if (mode === Navigator.FINISHED) {
+        return NotificationScreen({
+          message: text(props.messages.goodbye),
+          handleContinue: function () {
+            // turn off? navigate home?
+            console.info('Am Ende');
+          }
+        });
       }
 
-      // Default state (NAVIGATING)
+      // Default mode (NAVIGATING)
       return CompassScreen(props);
     }
   });
 
+  Navigator.LAUNCHED   = -1;
   Navigator.NAVIGATING = 0;
   Navigator.ANNOUNCE   = 1;
   Navigator.PLAY       = 2;
   Navigator.CONTINUE   = 3;
   Navigator.FINISHED   = 4;
-
-  exports.Navigator = Navigator;
 
 // <div id="debug" style="display:none">
 //   <p>
@@ -224,20 +286,17 @@
     }
   });
 
-  exports.Debugger = Debugger;
-
   var App = React.createClass({
     getInitialState: function () {
       return {debug: false};
     },
+    handleClick: function () {
+      // this.setState({debug: !this.state.debug}); // toggle debug view
+    },
     render: function () {
       var view;
       view = this.state.debug ? Debugger(this.props) : Navigator(this.props);
-      return React.DOM.div({
-        onClick: function () {
-          this.setState({debug: !this.state.debug}); // toggle debug view
-        }.bind(this)
-      }, view);
+      return React.DOM.div({onClick: this.handleClick}, view);
     }
   });
 

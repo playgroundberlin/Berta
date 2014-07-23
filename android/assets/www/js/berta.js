@@ -19,13 +19,15 @@
    *              start()                              next()
    *              'goto'          'arrive'            'finish'
    *   o-> INI -----------> NAV -----------> AT_LOC -----------> FIN
-   *                       ^ |  <-----------
-   *                       | |     next()
-   *                       +-+     'goto'
-   *                     'move'
+   *                       ^ |  <-----------                    ^ |
+   *                       | |     next()                       | |
+   *                       +-+     'goto'                       +-+
+   *                     'move'                                stop()
    */
   var Berta = function Berta(tracker, tour, config) {
     this.tracker = tracker;
+
+    // Set tour items
 
     this.tour = tour.map(function (item) {
       return {
@@ -153,7 +155,6 @@
     } else {
       this.state = Berta.FINISHED;
       this.trigger('finish');
-      this.stop();
     }
   };
 
