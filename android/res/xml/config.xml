@@ -26,5 +26,6 @@
     </feature>
     <feature name="UDPClient">
         <param name="android-package" value="com.playgroundberlin.berta.udp.UDPClient" />
+        <param name="onload" value="true" />
     </feature>
 </widget>

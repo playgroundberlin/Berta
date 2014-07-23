@@ -8,8 +8,7 @@ var UDPClient = function UDPClient(address, port) {
 };
 
 UDPClient.prototype.send = function send(msg) {
-  argscheck.checkArgs('S', 'UDPClient.send', arguments);
-  exec(null, null, 'UDPClient', 'send', [this.address, this.port, msg]);
+  exec(null, null, 'UDPClient', 'send', [this.address, this.port, '' + msg]);
 };
 
 module.exports = UDPClient;

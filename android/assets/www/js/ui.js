@@ -144,7 +144,8 @@
     },
     handleTrackingUpdate: function (distance, direction) {
       if (this.state.mode !== Navigator.NAVIGATING) return;
-      this.props.hardware.send('' + Math.round(direction));
+      var value = Math.round(scale(direction, [0, 360], [100, 80]));
+      this.props.hardware.send(value);
     },
     handleAtDestination: function (info) {
       this.setState({mode: Navigator.ANNOUNCE});

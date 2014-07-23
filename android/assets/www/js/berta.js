@@ -71,6 +71,7 @@
     target = position.bearingTo(destination);
     direction = target - actual;
     if (direction < 0) direction += 360;
+    if (direction >= 360) direction -= 360;
     return direction;
   }
 
