@@ -19,6 +19,10 @@
                         {
                             "xml": "<feature name=\"Compass\"><param name=\"android-package\" value=\"org.apache.cordova.deviceorientation.CompassListener\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"UDPClient\"><param name=\"android-package\" value=\"com.playgroundberlin.berta.udp.UDPClient\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -69,6 +73,9 @@
             "PACKAGE_NAME": "com.playgroundberlin.berta"
         },
         "org.apache.cordova.device-orientation": {
+            "PACKAGE_NAME": "com.playgroundberlin.berta"
+        },
+        "com.playgroundberlin.berta.udp": {
             "PACKAGE_NAME": "com.playgroundberlin.berta"
         }
     },

@@ -73,6 +73,11 @@ The following plugins are installed and used by Berta:
     org.apache.cordova.device-orientation
     org.apache.cordova.media
 
+These local plugins are used as well:
+
+    ../plugins/udp
+    ../plugins/insomnia
+
 ## Upgrading
 
 Here's a guide on [how to upgrade Android projects from older versions of Cordova](http://cordova.apache.org/docs/en/3.5.0/guide_platforms_android_upgrade.md.html#Upgrading%20Android).

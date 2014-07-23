@@ -184,16 +184,24 @@ module.exports = [
         "clobbers": [
             "navigator.compass"
         ]
+    },
+    {
+        "file": "plugins/com.playgroundberlin.berta.udp/www/UDPClient.js",
+        "id": "com.playgroundberlin.berta.udp.UDPClient",
+        "clobbers": [
+            "window.UDPClient"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "org.apache.cordova.console": "0.2.9",
-    "org.apache.cordova.device-orientation": "0.3.7",
     "org.apache.cordova.geolocation": "0.3.8",
     "org.apache.cordova.file": "1.2.1-dev",
-    "org.apache.cordova.media": "0.2.11"
+    "org.apache.cordova.media": "0.2.11",
+    "org.apache.cordova.device-orientation": "0.3.7",
+    "com.playgroundberlin.berta.udp": "0.0.1"
 }
 // BOTTOM OF METADATA
 });
