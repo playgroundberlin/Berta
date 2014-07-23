@@ -159,12 +159,25 @@
   };
 
   Berta.prototype.goto = function goto(i) {
-    var place = this.tour[i];
+    var position, destination, landscape, place;
+
+    place = this.tour[i];
 
     if (!place) return false;
 
     this.destination = new LatLon(place.lat, place.lon);
     this.progress = i;
+
+    position = this.position;
+    destination = this.destination;
+    landscape = this.config.landscape;
+
+    if (position !== null) {
+      this.distance = dist(position, destination);
+      if (this.heading) {
+        this.direction = dir(this.heading, position, destination, landscape);
+      }
+    }
 
     this.state = Berta.NAVIGATING;
     this.trigger('goto', [place]);
