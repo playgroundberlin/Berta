@@ -1,9 +1,7 @@
 (function (exports) {
   'use strict';
 
-  /**
-   * Utility functions
-   */
+  // Utility functions
 
   // Maps a value from one range into another:
   // scale(150, [100, 200], [0, 1]) // => 0.5
@@ -32,18 +30,26 @@
     return render(message, context);
   }
 
-  /**
-   * Berta's (user inter)face:
-   *
-   * Component structure
-   *   - App
-   *     - Navigator
-   *       - CompassScreen
-   *       - NotificationScreen
-   *       - PlayerScreen
-   *     - Debugger
-   */
+  // Berta's (user inter-)face:
+  //
+  // Component structure:
+  //   - App
+  //     - Navigator
+  //       - CompassScreen
+  //       - MessageScreen
+  //     - (Debugger)
 
+  /**
+   * Shows the current distance and direction to the next tour location.
+   *
+   * Props:
+   *   - messages
+   *   - berta
+   *
+   * State:
+   *   - direction
+   *   - distance
+   */
   var CompassScreen = React.createClass({
     getInitialState: function () {
       return {
@@ -84,59 +90,110 @@
     }
   });
 
-  var NotificationScreen = React.createClass({
-    render: function () {
-      var props = this.props;
-      return React.DOM.div({
-        className: 'screen notification',
-        onClick: props.handleContinue || (function noop() {})
-      }, [
-        React.DOM.h2({}, props.message)
-      ]);
-    }
-  });
-
-  var PlayerScreen = React.createClass({
+  /**
+   * Displays a message and plays the corresponding audio file (optional).
+   *
+   * Props:
+   *   - audiosrc (optional)
+   *   - message
+   *   - handler
+   *
+   * State:
+   *   - playing
+   *   - media
+   */
+  var MessageScreen = React.createClass({
     getInitialState: function () {
-      return {playing: false};
+      return {media: null};
     },
-    play: function () {},
-    pause: function () {},
-    stop: function () {},
+    componentDidMount: function () {
+      var audiosrc = this.props.audiosrc;
+      console.log(audiosrc);
+      if (!audiosrc) return;
+      this.setState({
+        media: new Media(audiosrc, this.mediaSuccess, this.mediaError, this.mediaStatus)
+      });
+    },
+    componentWillUnmount: function () {
+      var media = this.state.media;
+      if (media) media.release();
+    },
+    play: function () {
+      this.state.media.play();
+    },
+    pause: function () {
+      this.state.media.pause();
+    },
+    stop: function () {
+      this.state.media.stop();
+    },
+    mediaSuccess: function () {},
+    mediaError: function (error) {
+      console.error(error.message);
+    },
+    mediaStatus: function (status) {},
     render: function () {
-      var props = this.props;
-      return React.DOM.div({
-        className: 'screen player'
-      }, [
-        React.DOM.h2({}, text(props.messages.voila, props.info)),
-        React.DOM.div({}, [
-          React.DOM.a({
-            onClick: function () {}
-          }, this.state.playing ? 'Pause' : 'Play'),
-          React.DOM.a({
-            onClick: function () {}
-          }, 'Rewind'),
-          React.DOM.a({
-            onClick: props.handleContinue
-          }, 'Weiter geht\'s')
-        ])
-      ]);
+      var props, children;
+
+      props = this.props;
+
+      children = [
+        React.DOM.h2({
+          key: 'message-screen-message'
+        }, props.message),
+        React.DOM.a({
+          key: 'message-screen-continue-link',
+          onClick: props.handler || (function noop() {})
+        }, 'Weiter')
+      ];
+
+      if (props.audiosrc) {
+        children.push(React.DOM.div({}, React.DOM.ul({}, [
+          React.DOM.li({}, React.DOM.a({
+            onClick: this.play
+          }, 'Abspielen')),
+          React.DOM.li({}, React.DOM.a({
+            onClick: this.pause
+          }, 'Pause')),
+          React.DOM.li({}, React.DOM.a({
+            onClick: this.stop
+          }, 'Stop'))
+        ])));
+      }
+
+      return React.DOM.div({className: 'screen notification'}, children);
     }
   });
 
-  // Navigator state machine:
-  //
-  //   o-> LAUNCHED -> NAVIGATING -> ANNOUNCE -> PLAY -> FINISHED
-  //                   ^                            |
-  //                   +-------- CONTINUE <---------+
-  //
-
+  /**
+   * Keeps track of the application/tour state and displays the appropriate
+   * screens.
+   *
+   * Props:
+   *   - hardware
+   *   - messages
+   *   - berta
+   *
+   * State:
+   *   - mode
+   *   - info
+   *
+   * Navigator state machine (modes):
+   *
+   *   o-> LAUNCHED -> NAVIGATING -> ANNOUNCE -> PLAY -> FINISHED
+   *                   ^                            |
+   *                   +-------- CONTINUE <---------+
+   *
+   */
   var Navigator = React.createClass({
     getInitialState: function () {
-      return {mode: Navigator.LAUNCHED};
+      return {
+        mode: Navigator.LAUNCHED,
+        info: null
+      };
     },
     handleNewDestination: function (info) {
-      console.info('Als Nächstes: %s - %s', info.artist, info.title);
+      // console.info('Als Nächstes: %s - %s', info.artist, info.title);
       this.setState({
         mode: Navigator.NAVIGATING,
         info: info
@@ -148,9 +205,14 @@
       this.props.hardware.send(value);
     },
     handleAtDestination: function (info) {
-      this.setState({mode: Navigator.ANNOUNCE});
+      // console.info('Jetzt: %s - %s', info.artist, info.title);
+      this.setState({
+        mode: Navigator.ANNOUNCE,
+        info: info
+      });
     },
     handleTourFinished: function () {
+      // console.info('Tour beendet');
       this.setState({mode: Navigator.FINISHED});
     },
     componentDidMount: function () {
@@ -179,37 +241,41 @@
       mode = this.state.mode;
 
       if (mode === Navigator.LAUNCHED) {
-        return NotificationScreen({
+        return MessageScreen({
+          key: 'navigator-screen-launched',
           message: text(props.messages.disoriented)
         });
       } else if (mode === Navigator.ANNOUNCE) {
-        return NotificationScreen({
+        return MessageScreen({
+          key: 'navigator-screen-announce',
           message: text(props.messages.announcement),
-          handleContinue: function () {
+          handler: function () {
             navigator.setState({mode: Navigator.PLAY});
           }
         });
       } else if (mode === Navigator.PLAY) {
-        return PlayerScreen({
-          info: state.info,
-          messages: props.messages,
-          handleContinue: function () {
+        return MessageScreen({
+          key: 'navigator-screen-play',
+          audiosrc: state.info.src,
+          message: text(props.messages.voila, state.info),
+          handler: function () {
             navigator.setState({mode: Navigator.CONTINUE});
           }
         });
       } else if (mode === Navigator.CONTINUE) {
-        return NotificationScreen({
+        return MessageScreen({
+          key: 'navigator-screen-continue',
           message: text(props.messages.proceed),
-          handleContinue: function () {
-            berta.next(); // proceed with the tour (triggers 'goto')
+          handler: function () {
+            berta.next();
           }
         });
       } else if (mode === Navigator.FINISHED) {
-        return NotificationScreen({
+        return MessageScreen({
+          key: 'navigator-screen-finished',
           message: text(props.messages.goodbye),
-          handleContinue: function () {
+          handler: function () {
             // turn off? navigate home?
-            console.info('Am Ende');
           }
         });
       }
@@ -226,95 +292,9 @@
   Navigator.CONTINUE   = 3;
   Navigator.FINISHED   = 4;
 
-// <div id="debug" style="display:none">
-//   <p>
-//     <strong>Next (Unplayed) Sound Location:</strong><br>
-//     <span id="soundLat">???</span>, <span id="soundLon">???</span><br>
-//     <span id="soundDistance">???</span> m<br>
-//     <span id="soundArtist">???</span><br>
-//     <span id="soundTitle">???</span><br>
-//     <span id="soundComment">???</span>
-//   </p>
-//   <p>
-//     <strong>Current Location (Lat, Lon, Accuracy):</strong><br>
-//     <span id="currentLat">???</span>, <span id="currentLon">???</span>, <span id="currentAcc">???</span>
-//   </p>
-//   <p>
-//     <strong>Compass (True Heading, Magnetic, Accuracy):</strong><br>
-//     <span id="currentTrueHead">???</span>, <span id="currentMagnHead">???</span>, <span id="currentHeadAcc">???</span>
-//   </p>
-//   <p>
-//     <strong>Log:</strong><br>
-//     <span id="log">Empty</span>
-//   </p>
-//   <div class="tab"><a href="javascript:playAudio(SDPATH+'/berta/panda.mp3')">TEST SOUND</a></div>
-//   <div class="tab"><a href="javascript:stopAudio()">STOP AUDIO</a></div>
-//   <div class="tab"><a href="javascript:initRoute('NORMAL')">NORMALMODE</a></div>
-//   <div class="tab"><a href="javascript:initRoute('TESTMODE')">TESTMODE</a></div>
-//   <div class="tab"><a href="javascript:nextPoint()">NEXT POINT</a></div>
-//   <div class="tab"><a href="javascript:prevPoint()">PREV POINT</a></div>
-//   <div class="tab"><a href="javascript:hardware.setServoValue('80')">SET SERVO TO 80</a></div>
-//   <div class="tab"><a href="javascript:hardware.setServoValue('90')">SET SERVO TO 90</a></div>
-//   <div class="tab"><a href="javascript:hardware.setServoValue('100')">SET SERVO TO 100</a></div>
-//   <div class="tab"><a href="javascript:hardware.setServoValue('shutdown')">SHUTDOWN PI</a></div>
-//   <div class="tab"><a href="javascript:toggleMode()">BACK</a></div>
-//   <div class="tab"><a href="javascript:navigator.app.exitApp()">CLOSE APP</a></div>
-// </div>
-
-  var Debugger = React.createClass({
-    getInitialState: function () {
-      return {
-        info: null,
-        distance: null,
-        direction: null
-      };
-    },
-    handleNewDestination: function (info) {
-      this.setState({info: info});
-    },
-    handleTrackingUpdate: function (distance, direction) {
-      this.setState({
-        distance: distance,
-        direction: direction
-      });
-    },
-    handleAtDestination: function (info) {
-      // …
-    },
-    handleTourFinished: function () {
-      // …
-    },
-    componentDidMount: function () {
-      var berta = this.props.berta;
-      berta.on('goto', this.handleNewDestination);
-      berta.on('move', this.handleTrackingUpdate);
-      berta.on('arrive', this.handleAtDestination);
-      berta.on('finish', this.handleTourFinished);
-    },
-    componentWillUnmount: function () {
-      var berta = this.props.berta;
-      berta.off('goto', this.handleNewDestination);
-      berta.off('move', this.handleTrackingUpdate);
-      berta.off('arrive', this.handleAtDestination);
-      berta.off('finish', this.handleTourFinished);
-    },
-    render: function () {
-      var state = this.state;
-      return React.DOM.div({className: 'screen dbg'}, 'Debugger');
-    }
-  });
-
   var App = React.createClass({
-    getInitialState: function () {
-      return {debug: false};
-    },
-    handleClick: function () {
-      // this.setState({debug: !this.state.debug}); // toggle debug view
-    },
     render: function () {
-      var view;
-      view = this.state.debug ? Debugger(this.props) : Navigator(this.props);
-      return React.DOM.div({onClick: this.handleClick}, view);
+      return Navigator(this.props);
     }
   });
 
