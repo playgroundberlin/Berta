@@ -12,7 +12,7 @@
   <link href="css/index.css" rel="stylesheet">
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app" class="fullscreen"></div>
 
   <!-- Cordova -->
   <script src="cordova.js"></script>
@@ -39,8 +39,7 @@
 
       var config = {
         orientation: 'landscape', // device orientation: portrait/landscape
-        distlimit: 15,            // radius for tour locations, in meters
-        path: SDPATH              // base storage path (see config.js)
+        distlimit: 15             // radius for tour locations, in meters
       };
 
       var tour = TOURS['default']; // default, test etc. (see config.js)

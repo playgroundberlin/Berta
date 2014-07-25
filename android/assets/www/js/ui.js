@@ -43,7 +43,7 @@
    * Shows the current distance and direction to the next tour location.
    *
    * Props:
-   *   - messages
+   *   - distunit
    *   - berta
    *
    * State:
@@ -68,13 +68,15 @@
     },
     render: function () {
       var state = this.state;
-      return React.DOM.div({className: 'screen nav'}, [
+      return React.DOM.div({
+        className: 'screen compass-screen'
+      }, [
         React.DOM.div({
-          key: 'compass',
+          key: 'cs-compass',
           className: 'compass'
         }, [
           React.DOM.img({
-            key: 'compass-screen-compass-needle',
+            key: 'cs-compass-needle',
             className: 'compass-needle',
             style: {
               '-webkit-transform': 'rotate(' + (state.direction || 0) + 'deg)'
@@ -83,9 +85,9 @@
           })
         ]),
         React.DOM.p({
-          key: 'compass-screen-distance',
+          key: 'cs-distance',
           className: 'distance'
-        }, Math.round(state.distance) + ' ' + this.props.messages.distunit)
+        }, Math.round(state.distance) + ' ' + this.props.distunit)
       ]);
     }
   });
@@ -95,28 +97,37 @@
    *
    * Props:
    *   - audiosrc (optional)
+   *   - handler (optional)
    *   - message
-   *   - handler
    *
    * State:
-   *   - playing
+   *   - mediastatus
    *   - media
    */
   var MessageScreen = React.createClass({
     getInitialState: function () {
-      return {media: null};
+      return {
+        mediastatus: -1,
+        media: null
+      };
     },
     componentDidMount: function () {
       var audiosrc = this.props.audiosrc;
-      console.log(audiosrc);
-      if (!audiosrc) return;
-      this.setState({
-        media: new Media(audiosrc, this.mediaSuccess, this.mediaError, this.mediaStatus)
-      });
+      if (audiosrc) this.load(audiosrc);
     },
     componentWillUnmount: function () {
       var media = this.state.media;
       if (media) media.release();
+    },
+    load: function (src) {
+      this.setState({
+        media: new Media(
+          src,
+          this.mediaSuccess,
+          this.mediaError,
+          this.mediaStatus
+        )
+      });
     },
     play: function () {
       this.state.media.play();
@@ -127,41 +138,61 @@
     stop: function () {
       this.state.media.stop();
     },
-    mediaSuccess: function () {},
-    mediaError: function (error) {
-      console.error(error.message);
+    mediaSuccess: function () {
+      // completed the current play or stop action
     },
-    mediaStatus: function (status) {},
+    mediaError: function (error) {
+      console.error('Media Error (%s): %s', error.code, error.message);
+    },
+    mediaStatus: function (status) {
+      this.setState({mediastatus: status});
+    },
     render: function () {
-      var props, children;
+      var props, mediastatus, playing, stopped, children;
 
       props = this.props;
 
-      children = [
-        React.DOM.h2({
-          key: 'message-screen-message'
-        }, props.message),
-        React.DOM.a({
-          key: 'message-screen-continue-link',
+      children = [React.DOM.h2({
+        key: 'ms-message-heading',
+        className: 'message-heading'
+      }, props.message)];
+
+      if (props.handler) {
+        children.push(React.DOM.a({
+          key: 'ms-continue-btn',
+          className: 'continue-btn',
           onClick: props.handler || (function noop() {})
-        }, 'Weiter')
-      ];
+        }, 'Weiter'));
+      }
 
       if (props.audiosrc) {
-        children.push(React.DOM.div({}, React.DOM.ul({}, [
-          React.DOM.li({}, React.DOM.a({
-            onClick: this.play
-          }, 'Abspielen')),
-          React.DOM.li({}, React.DOM.a({
-            onClick: this.pause
-          }, 'Pause')),
-          React.DOM.li({}, React.DOM.a({
+        mediastatus = this.state.mediastatus;
+
+        playing = (
+          mediastatus === Media.MEDIA_STARTING ||
+          mediastatus === Media.MEDIA_RUNNING
+        );
+
+        stopped = (mediastatus === Media.MEDIA_STOPPED);
+
+        children.push(React.DOM.div({
+          key: 'ms-audio-controls',
+          className: 'audio-container'
+        }, React.DOM.ul({
+          className: 'audio-controls'
+        }, [
+          React.DOM.li({key: 'ms-play-pause'}, React.DOM.a({
+            className: playing ? 'pause-btn' : 'play-btn',
+            onClick: playing ? this.pause : this.play
+          }, playing ? 'Pause' : 'Abspielen')),
+          React.DOM.li({key: 'ms-stop'}, React.DOM.a({
+            className: 'stop-btn ' + (stopped ? 'disabled' : ' enabled'),
             onClick: this.stop
           }, 'Stop'))
         ])));
       }
 
-      return React.DOM.div({className: 'screen notification'}, children);
+      return React.DOM.div({className: 'screen message-screen'}, children);
     }
   });
 
@@ -213,7 +244,9 @@
     },
     handleTourFinished: function () {
       // console.info('Tour beendet');
-      this.setState({mode: Navigator.FINISHED});
+      this.setState({
+        mode: Navigator.FINISHED
+      });
     },
     componentDidMount: function () {
       var berta = this.props.berta;
@@ -238,16 +271,16 @@
       props = this.props;
       state = this.state;
 
-      mode = this.state.mode;
+      mode = state.mode;
 
       if (mode === Navigator.LAUNCHED) {
         return MessageScreen({
-          key: 'navigator-screen-launched',
+          key: 'ns-launched',
           message: text(props.messages.disoriented)
         });
       } else if (mode === Navigator.ANNOUNCE) {
         return MessageScreen({
-          key: 'navigator-screen-announce',
+          key: 'ns-announce',
           message: text(props.messages.announcement),
           handler: function () {
             navigator.setState({mode: Navigator.PLAY});
@@ -255,7 +288,7 @@
         });
       } else if (mode === Navigator.PLAY) {
         return MessageScreen({
-          key: 'navigator-screen-play',
+          key: 'ns-play',
           audiosrc: state.info.src,
           message: text(props.messages.voila, state.info),
           handler: function () {
@@ -264,7 +297,7 @@
         });
       } else if (mode === Navigator.CONTINUE) {
         return MessageScreen({
-          key: 'navigator-screen-continue',
+          key: 'ns-continue',
           message: text(props.messages.proceed),
           handler: function () {
             berta.next();
@@ -272,7 +305,7 @@
         });
       } else if (mode === Navigator.FINISHED) {
         return MessageScreen({
-          key: 'navigator-screen-finished',
+          key: 'ns-finished',
           message: text(props.messages.goodbye),
           handler: function () {
             // turn off? navigate home?
@@ -281,7 +314,7 @@
       }
 
       // Default mode (NAVIGATING)
-      return CompassScreen(props);
+      return CompassScreen({distunit: props.messages.distunit, berta: berta});
     }
   });
 

@@ -50,6 +50,10 @@ To run a on a device or a configured emulator, use:
 2. Connect to the console: `telnet localhost 5554`
 3. For a a list of available commands, type `help` and/or see the [online documentation](http://developer.android.com/tools/devices/emulator.html#console)
 
+For one-off commands to the emulator console, you can use `netcat`, e.g.:
+
+    echo "geo fix 13.3982 52.55462" | nc localhost 5554
+
 ## More
 
 The Cordova developer tools support a few more useful commands:
