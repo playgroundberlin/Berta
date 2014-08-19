@@ -36,7 +36,7 @@
         src:    item[2],
         artist: item[3],
         title:  item[4],
-        desc:   item[5]
+        imgsrc: item[5]
       };
     });
 

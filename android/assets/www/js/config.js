@@ -13,33 +13,24 @@ var HWPORT = 50000;
 
 var TOURS = {
   "default": [
-    [52.55464600, 13.39834200, SDPATH + '/berta/jeansteam.mp3',      'Jeans Team',                 'Lolita Dröhn',         ''],
-    [52.54522600, 13.41231100, SDPATH + '/berta/nylon.mp3',          'Nylon',                      'Schönhauser Allee',    ''],
-    [52.53887000, 13.42433800, SDPATH + '/berta/dra-q.mp3',          'Dra-Q',                      'Mitsommernacht',       ''],
-    [52.53977900, 13.43593300, SDPATH + '/berta/berlinskibeat.mp3',  'Berlinskibeat',              'Nacht in Berlin',      ''],
-    [52.52207000, 13.41280500, SDPATH + '/berta/tresen.mp3',         'Der Singende Tresen',        'Alexanderplatz',       ''],
-    [52.50865300, 13.45087300, SDPATH + '/berta/koletzki.mp3',       'Oliver Koletzki feat. Fran', 'Warschauer Strasse',   ''],
-    [52.50723000, 13.45590500, SDPATH + '/berta/panda.mp3',          'Panda',                      'Hier bleiben',         ''],
-    [52.51155900, 13.42684300, SDPATH + '/berta/bonaparte.mp3',      'Bonaparte',                  'Gigolo Vagabundo',     ''],
-    [52.51093900, 13.42501500, SDPATH + '/berta/doering.mp3',        'Dirty Doering',              'Bye Bye Bar 25',       ''],
-    [52.50839200, 13.42892100, SDPATH + '/berta/rummelsnuff.mp3',    'Rummelsnuff',                'Winterlied',           ''],
-    [52.49827100, 13.42440000, SDPATH + '/berta/simonnejones.mp3',   'Simonne Jones',              'We Are Young',         ''],
-    [52.49550000, 13.42014300, SDPATH + '/berta/yukazu.mp3',         'Yukazu',                     'Rote Äpfel',           ''],
-    [52.47942169, 13.43147278, SDPATH + '/berta/pauline-andres.mp3', 'Pauline Andrès',             'Fuck you french girl', '']
+    [52.55464600, 13.39834200, SDPATH + '/berta/jeansteam.mp3',      'Jeans Team',                 'Lolita Dröhn',         SDPATH + 'jeansteam.png'],
+    [52.54522600, 13.41231100, SDPATH + '/berta/nylon.mp3',          'Nylon',                      'Schönhauser Allee',    SDPATH + 'nylon.png'],
+    [52.53887000, 13.42433800, SDPATH + '/berta/dra-q.mp3',          'Dra-Q',                      'Mitsommernacht',       SDPATH + 'dra-q.png'],
+    [52.53977900, 13.43593300, SDPATH + '/berta/berlinskibeat.mp3',  'Berlinskibeat',              'Nacht in Berlin',      SDPATH + 'berlinskibeat.png'],
+    [52.52207000, 13.41280500, SDPATH + '/berta/tresen.mp3',         'Der Singende Tresen',        'Alexanderplatz',       SDPATH + 'tresen.png'],
+    [52.50865300, 13.45087300, SDPATH + '/berta/koletzki.mp3',       'Oliver Koletzki feat. Fran', 'Warschauer Strasse',   SDPATH + 'koletzki.png'],
+    [52.50723000, 13.45590500, SDPATH + '/berta/panda.mp3',          'Panda',                      'Hier bleiben',         SDPATH + 'panda.png'],
+    [52.51155900, 13.42684300, SDPATH + '/berta/bonaparte.mp3',      'Bonaparte',                  'Gigolo Vagabundo',     SDPATH + 'bonaparte.png'],
+    [52.51093900, 13.42501500, SDPATH + '/berta/doering.mp3',        'Dirty Doering',              'Bye Bye Bar 25',       SDPATH + 'doering.png'],
+    [52.50839200, 13.42892100, SDPATH + '/berta/rummelsnuff.mp3',    'Rummelsnuff',                'Winterlied',           SDPATH + 'rummelsnuff.png'],
+    [52.49827100, 13.42440000, SDPATH + '/berta/simonnejones.mp3',   'Simonne Jones',              'We Are Young',         SDPATH + 'simonnejones.png'],
+    [52.49550000, 13.42014300, SDPATH + '/berta/yukazu.mp3',         'Yukazu',                     'Rote Äpfel',           SDPATH + 'yukazu.png'],
+    [52.47942169, 13.43147278, SDPATH + '/berta/pauline-andres.mp3', 'Pauline Andrès',             'Fuck you french girl', SDPATH + 'pauline-andres.png']
   ],
   "test": [
-    [52.48542500, 13.36251800, SDPATH + '/berta/test1.mp3',          'Test',                       'Schöneberg 1',         ''],
-    [52.48647100, 13.36227200, SDPATH + '/berta/test2.mp3',          'Test',                       'Schöneberg 2',         ''],
-    [52.48603300, 13.36358100, SDPATH + '/berta/test3.mp3',          'Test',                       'Schöneberg 3',         '']
-  ],
-  "maerchenbrunnen": [
-    [52.52814100, 13.43288900, SDPATH + '/berta/koletzki.mp3',       'Oliver Koletzki feat. Fran', 'Warschauer Strasse',   ''],
-    [52.52814100, 13.43288900, SDPATH + '/berta/nylon.mp3',          'Nylon',                      'Schönhauser Allee',    ''],
-    [52.52727900, 13.43402600, SDPATH + '/berta/dra-q.mp3',          'Dra-Q',                      'Mitsommernacht',       ''],
-    [52.52617000, 13.43542100, SDPATH + '/berta/berlinskibeat.mp3',  'Berlinskibeat',              'Nacht in Berlin',      ''],
-    [52.52795800, 13.43572100, SDPATH + '/berta/tresen.mp3',         'Der Singende Tresen',        'Alexanderplatz',       ''],
-    [52.52786700, 13.43803900, SDPATH + '/berta/doering.mp3',        'Dirty Doering',              'Bye Bye Bar 25',       ''],
-    [52.52793200, 13.42640900, SDPATH + '/berta/jeansteam.mp3',      'Jeans Team',                 'Lolita Dröhn',         '']
+    [52.52809900, 13.42511600, SDPATH + '/berta/test1.mp3',          'Test 1',                     'Schöneberg 1',         SDPATH + 'test-1.png'],
+    [52.52781500, 13.42683800, SDPATH + '/berta/test2.mp3',          'Test 2',                     'Schöneberg 2',         SDPATH + 'test-2.png'],
+    [52.52710100, 13.42715000, SDPATH + '/berta/test3.mp3',          'Test 3',                     'Schöneberg 3',         SDPATH + 'test-3.png']
   ]
 };
 
