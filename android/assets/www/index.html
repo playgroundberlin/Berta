@@ -25,6 +25,7 @@
   <!-- <script src="js/sylvester.js"></script> -->
   <!-- <script src="js/kalman.js"></script> -->
   <script src="js/mustache.js"></script>
+  <script src="js/lodash.js"></script>
 
   <!-- Application -->
   <script src="js/gps-tracker.js"></script>
@@ -44,8 +45,13 @@
 
       var tour = TOURS['default']; // default, test etc. (see config.js)
 
-      var hardware = new UDPClient(HWIP, HWPORT);
       var tracker = new GPSTracker();
+      var client = new UDPClient(HWIP, HWPORT);
+      var hardware = {
+        send: _.throttle(function (value) {
+          client.send(value);
+        }, 500)
+      };
 
       // Wake up Berta
 
