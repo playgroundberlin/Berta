@@ -14,6 +14,8 @@ These can be checked using `./bin/check_reqs` from the cordova-android developer
 
 *For detailed information, see Cordova's [Android Platform Guide](http://cordova.apache.org/docs/en/3.5.0/guide_platforms_index.md.html#Platform%20Guides_android).*
 
+*You may have to `export ANDROID_HOME="/path/to/android-sdk"` or add `local.properties` to the `android` and `CordovaLib` folders.*
+
 ## [Building](http://cordova.apache.org/docs/en/3.5.0/guide_platforms_android_tools.md.html#Android%20Shell%20Tool%20Guide_build)
 
 To build the application, run:
