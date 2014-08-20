@@ -160,11 +160,15 @@
       }, props.message)];
 
       if (props.handler) {
-        children.push(React.DOM.a({
-          key: 'ms-continue-btn',
-          className: 'continue-btn',
-          onClick: props.handler || (function noop() {})
-        }, 'Weiter'));
+        if (props.duration) {
+          setTimeout(props.handler, props.duration);
+        } else {
+          children.push(React.DOM.a({
+            key: 'ms-continue-btn',
+            className: 'continue-btn',
+            onClick: props.handler || (function noop() {})
+          }, 'Weiter'));
+        }
       }
 
       if (props.audiosrc) {
@@ -290,6 +294,7 @@
         return MessageScreen({
           key: 'ns-announce',
           message: text(props.messages.announcement),
+          duration: 8000,
           handler: function () {
             navigator.setState({mode: Navigator.PLAY});
           }
@@ -308,6 +313,7 @@
         return MessageScreen({
           key: 'ns-continue',
           message: text(props.messages.proceed),
+          duration: 6000,
           handler: function () {
             berta.next();
           }
