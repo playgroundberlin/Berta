@@ -87,7 +87,7 @@
         React.DOM.p({
           key: 'cs-distance',
           className: 'distance'
-        }, Math.round(state.distance) + ' ' + this.props.distunit)
+        }, render(this.props.message, {distance: Math.round(state.distance)}))
       ]);
     }
   });
@@ -321,7 +321,7 @@
       }
 
       // Default mode (NAVIGATING)
-      return CompassScreen({distunit: props.messages.distunit, berta: berta});
+      return CompassScreen({message: props.messages.distance, berta: berta});
     }
   });
 

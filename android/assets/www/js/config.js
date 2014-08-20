@@ -38,7 +38,7 @@ var TOURS = {
 
 var MESSAGES = {
   disoriented: 'Ich habe die Orientierung verloren. Bitte bringt mich ans Tageslicht und habt etwas Geduld mit mir.',
-  distunit: 'Schritte',
+  distance: 'Noch {{distance}} mal in die Pedale treten',
   announcement: 'Wir sind da. Macht es euch bequem.',
   voila: [
     'Vorhang auf für {{artist}} mit {{title}}.',
