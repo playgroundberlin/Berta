@@ -120,14 +120,16 @@
       if (media) media.release();
     },
     load: function (src) {
-      this.setState({
-        media: new Media(
-          src,
-          this.mediaSuccess,
-          this.mediaError,
-          this.mediaStatus
-        )
-      });
+      var media = new Media(
+        src,
+        this.mediaSuccess,
+        this.mediaError,
+        this.mediaStatus
+      );
+      this.setState({media: media});
+      setTimeout(function () {
+        media.play();
+      }, 800)
     },
     play: function () {
       this.state.media.play();
