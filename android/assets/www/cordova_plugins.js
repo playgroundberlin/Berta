@@ -191,6 +191,13 @@ module.exports = [
         "clobbers": [
             "window.UDPClient"
         ]
+    },
+    {
+        "file": "plugins/com.playgroundberlin.berta.insomnia/www/Insomnia.js",
+        "id": "com.playgroundberlin.berta.insomnia.Insomnia",
+        "clobbers": [
+            "window.Insomnia"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -201,7 +208,8 @@ module.exports.metadata =
     "org.apache.cordova.file": "1.2.1-dev",
     "org.apache.cordova.media": "0.2.11",
     "org.apache.cordova.device-orientation": "0.3.7",
-    "com.playgroundberlin.berta.udp": "0.0.1"
+    "com.playgroundberlin.berta.udp": "0.0.1",
+    "com.playgroundberlin.berta.insomnia": "0.0.1"
 }
 // BOTTOM OF METADATA
 });

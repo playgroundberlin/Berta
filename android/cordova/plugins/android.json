@@ -81,6 +81,9 @@
         },
         "com.playgroundberlin.berta.udp": {
             "PACKAGE_NAME": "com.playgroundberlin.berta"
+        },
+        "com.playgroundberlin.berta.insomnia": {
+            "PACKAGE_NAME": "com.playgroundberlin.berta"
         }
     },
     "dependent_plugins": {}
