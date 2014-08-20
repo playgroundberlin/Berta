@@ -192,7 +192,13 @@
         ])));
       }
 
-      return React.DOM.div({className: 'screen message-screen'}, children);
+      return React.DOM.div({
+        className: 'screen message-screen',
+        style: this.props.imagesrc ? {
+          'background': 'url(' + this.props.imagesrc + ')',
+          'background-size': 'cover'
+        } : {}
+      }, children);
     }
   });
 
@@ -290,6 +296,7 @@
         return MessageScreen({
           key: 'ns-play',
           audiosrc: state.info.src,
+          imagesrc: state.info.imgsrc,
           message: text(props.messages.voila, state.info),
           handler: function () {
             navigator.setState({mode: Navigator.CONTINUE});
