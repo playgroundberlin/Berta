@@ -14,7 +14,7 @@ These can be checked using `./bin/check_reqs` from the cordova-android developer
 
 *For detailed information, see Cordova's [Android Platform Guide](http://cordova.apache.org/docs/en/3.5.0/guide_platforms_index.md.html#Platform%20Guides_android).*
 
-*You may have to `export ANDROID_HOME="/path/to/android-sdk"` or add `local.properties` to the `android` and `CordovaLib` folders.*
+*Hint: You may have to `export ANDROID_HOME="/path/to/android-sdk"` or add a `local.properties` file with `sdk.dir=/path/to/android-sdk` to the `android/` and `android/CordovaLib` folders.*
 
 ## [Building](http://cordova.apache.org/docs/en/3.5.0/guide_platforms_android_tools.md.html#Android%20Shell%20Tool%20Guide_build)
 
@@ -29,6 +29,8 @@ First, [configure an emulator](http://cordova.apache.org/docs/en/3.5.0/guide_pla
 To run a on a device or a configured emulator, use:
 
     ./cordova/run [--device|--emulator|--target=<TARGET-ID>] [--debug|--release|--nobuild]
+
+*Hint: The emulator window can be rotated to landscape mode and back by pressing `Ctrl + F12`.*
 
 ## Debugging
 
