@@ -1,78 +1,82 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-                          "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">
+  <meta name="msapplication-tap-highlight" content="no">
+
   <title>Berta - Der kleene Musikkompass</title>
-  <link href="css/style.css" type="text/css" rel="stylesheet" />
+
+  <link href="css/normalize.css" rel="stylesheet">
+  <link href="css/index.css" rel="stylesheet">
 </head>
-
-
 <body>
+  <div id="app" class="fullscreen"></div>
 
-  <div id="page">
-            <div id="canvas">
-                <p id="pointerdiv"><img src="img/arrow.png" id="pointer"></p>
-                <p class="" style="display:none" id="meters"></p>
-                <p class="" id="textdiv" onclick='toggle();'></p>
-              </div>
+  <!-- Cordova -->
+  <script src="cordova.js"></script>
 
-        <div id="debug" style="display:none;">
-          <p> <b>Next (Unplayed) Sound Location:</b>
-            <br/>
-            <span id="soundLat">???</span>, <span id="soundLon">???</span>, <span id="soundArtist">???</span>, <span id="soundTitle">???</span>, <span id="soundDistance">0</span> m, <span id="soundComment">???</span>
-          </p>
-          <p> <b>Current Location (Lat, Lon, Accuracy, Heading):</b>
-            <br/>
-            <span id="currentLat">???</span>, <span id="currentLon">???</span>, <span id="currentAcc">???</span>, <span id="currentHead">???</span>
-          </p>
-          <p><b>Compass:</b><br>
-            <span id="compass">No signal</span>
-          </p>
-          <p><b>Log:</b><br>
-            <span id="log">Empty</span>
-          </p>
-            <div class="tab"><a href="javascript:playAudio(sdpath+'/berta/panda.mp3');">TEST SOUND</a></div>
-            <div class="tab"><a href="javascript:stopAudio();">STOP AUDIO</a></div>
-            <div class="tab"><a href="javascript:initRoute('NORMAL');">NORMALMODE</a></div>
-            <div class="tab"><a href="javascript:initRoute('TESTMODE');">TESTMODE</a></div>
-            <div class="tab"><a href="javascript:nextPoint();">NEXT POINT</a></div>
-            <div class="tab"><a href="javascript:prevPoint();">PREV POINT</a></div>
-            <div class="tab"><a href="javascript:MyCls.setServoValue('80');">SET SERVO TO 80</a></div>
-            <div class="tab"><a href="javascript:MyCls.setServoValue('90');">SET SERVO TO 90</a></div>
-            <div class="tab"><a href="javascript:MyCls.setServoValue('100');">SET SERVO TO 100</a></div>
-            <div class="tab"><a href="javascript:MyCls.setServoValue('shutdown');">SHUTDOWN PI</a></div>
-            <div class="tab"><a href="javascript:toggle();">BACK</a></div>
-            <div class="tab"><a href="javascript:navigator.app.exitApp();">CLOSE APP</a></div>
-        </div>
-    </div>
+  <!-- Libraries -->
+  <!-- <script src="js/react-0.10.0.min.js"></script> -->
+  <script src="js/react-0.10.0.js"></script>
+  <script src="js/event-emitter.js"></script>
+  <script src="js/latlon.js"></script>
+  <!-- <script src="js/sylvester.js"></script> -->
+  <!-- <script src="js/kalman.js"></script> -->
+  <script src="js/mustache.js"></script>
+  <script src="js/lodash.js"></script>
 
-    <script type="text/javascript" charset="utf-8" src="js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/geolocation.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/audioplayer.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/cordova-2.9.0.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/jQueryRotate.2.2.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/strings.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/coordinates.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/latlon.js"></script>
+  <!-- Application -->
+  <script src="js/gps-tracker.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/berta.js"></script>
+  <script src="js/ui.js"></script>
 
-    <script type="text/javascript" charset="utf-8">
-    // Wait for Cordova to load
-    document.addEventListener("deviceready", onDeviceReady, false);
-    var watchID = null;
-    var headID = null;
+  <script>
     // Cordova is ready
     function onDeviceReady() {
-    document.getElementById("textdiv").innerHTML = no_gps;
-    watchID = navigator.geolocation.watchPosition(onSuccess, onError, { enableHighAccuracy: true });
-    initRoute("NORMAL"); // Load waypoints to array
-    setGeolocation();
-    startWatch();
+      Insomnia.enable(); // No sleep till…
+
+      // Setup/configuration
+
+      var config = {
+        orientation: 'landscape', // device orientation: portrait/landscape
+        distlimit: 15             // radius for tour locations, in meters
+      };
+
+      var tour = TOURS['default']; // default, test etc. (see config.js)
+
+      var tracker = new GPSTracker();
+      var client = new UDPClient(HWIP, HWPORT);
+      var hardware = {
+        send: _.throttle(function (value) {
+          client.send(value);
+        }, 500)
+      };
+
+      // Wake up Berta
+
+      var berta = window.berta = new Berta(tracker, tour, config);
+
+      // Render Berta's UI
+
+      var root = document.getElementById('app');
+
+      React.renderComponent(App({
+        messages: MESSAGES,
+        hardware: hardware,
+        tracker: tracker,
+        berta: berta
+      }), root);
+
+      // Begin the tour
+
+      berta.start();
     }
 
-    function toggle() {
-        $('#debug').toggle();
-        $('#canvas').toggle();
-    }
-    </script>
-    </body>
+    // Wait for Cordova to load
+    document.addEventListener('deviceready', onDeviceReady, false);
+  </script>
+</body>
 </html>

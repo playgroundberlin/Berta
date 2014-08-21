@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="com.playgroundberlin.berta.udp" version="0.0.1">
+    <name>UDP</name>
+    <description>Cordova UDP Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,udp</keywords>
+    <repo>https://github.com/playgroundberlin/Berta</repo>
+    <issue>https://github.com/playgroundberlin/Berta/issues</issue>
+
+    <js-module src="www/UDPClient.js" name="UDPClient">
+        <clobbers target="window.UDPClient" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+          <feature name="UDPClient">
+            <param name="android-package" value="com.playgroundberlin.berta.udp.UDPClient" />
+            <param name="onload" value="true" />
+          </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET" />
+        </config-file>
+
+        <source-file src="src/android/UDPClient.java" target-dir="src/com/playgroundberlin/berta/udp" />
+    </platform>
+</plugin>

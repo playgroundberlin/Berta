@@ -1,24 +1,26 @@
 import socket
-import os
+
+from os import system
 from time import sleep
 
-#UDP_IP = "192.168.2.190"
-UDP_IP = "0.0.0.0" # Listen to all adresses
-UDP_PORT = 50000
+# expects servod to be running already (e.g. via /etc/init.d/servoblaster)
 
-sock = socket.socket(socket.AF_INET, # Internet
-                     socket.SOCK_DGRAM) # UDP
-sock.bind((UDP_IP, UDP_PORT))
+# for servod configuration and usage instructions, please see:
+# https://github.com/richardghirst/PiBits/blob/master/ServoBlaster/README.txt
 
-os.system("sudo /home/pi/PiBits/ServoBlaster/user/servod") # init ServoBlaster
+HOST = "0.0.0.0" # receive from any address
+PORT = 50000
+
+BUFSIZE = 1024 # maximum amount of data to be received at once
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.bind((HOST, PORT))
 
 while True:
-    data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
-    if data=="shutdown": # Shutdown PI from Android app
-        os.system("sudo shutdown now")
-    if data.isdigit(): # Set servo to position
-        print "Set servo to:", data
-        os.system("echo 'Set servo to ...' | wall")
-        os.system("echo 2="+data+" > /dev/servoblaster")
+    data, addr = sock.recvfrom(BUFSIZE)
+    if data == "stop": # stop the server
+        break
+    elif data.isdigit(): # set the servo
+        system("echo 2=" + data + " > /dev/servoblaster")
         sleep(0.1)
-        os.system("echo 2=0 > /dev/servoblaster")
+        system("echo 2=0 > /dev/servoblaster")
