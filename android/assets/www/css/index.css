@@ -72,12 +72,14 @@ a:visited {
   right: 20px;
   padding-left: 5px;
   padding-right: 5px;
+  display: none;
 }
 
 .message-screen .audio-container {
   position: absolute;
   bottom: 20px;
   left: 20px;
+  display: none;
 }
 
 .message-screen ul.audio-controls {

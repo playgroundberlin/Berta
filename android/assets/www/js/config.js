@@ -43,11 +43,11 @@ var MESSAGES = {
   distance: 'Noch {{distance}} mal in die Pedale treten',
   announcement: 'Wir sind da. Macht es euch bequem.',
   voila: [
-    'Vorhang auf für {{artist}} mit {{title}}.',
-    'Tadaaaaa! {{artist}} mit {{title}}.',
-    'Ohren jespitzt für {{artist}} mit {{title}}.',
-    'Woooow, das klingt wie {{artist}} mit {{title}}.',
-    '{{artist}} mit {{title}}, da brauch ich wohl nicht mehr zu sagen.'
+    '',
+    '',
+    '',
+    '',
+    ''
   ],
   proceed: [
     'Und, weiter geht\'s!',
