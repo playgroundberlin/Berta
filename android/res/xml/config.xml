@@ -12,6 +12,7 @@
     <preference name="loglevel" value="DEBUG" />
     <preference name="orientation" value="landscape" />
     <preference name="fullscreen" value="true" />
+    <preference name="DisallowOverscroll" value="true" />
     <feature name="App">
         <param name="android-package" value="org.apache.cordova.App" />
     </feature>
