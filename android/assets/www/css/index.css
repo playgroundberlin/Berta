@@ -53,16 +53,19 @@ a:visited {
   margin: 0;
 }
 
-.message-screen {}
+.message-screen {
+	margin: 0;
+	padding: 0;
+}
 
 .message-screen .message-heading {
   margin-top: 1em;
-  padding: 20px;
+  padding: 60px;
   text-align: center;
   vertical-align: middle;
   color: #ccc;
   font-family: "BertaFont", sans-serif;
-  font-size: 30px;
+  font-size: 80px;
   line-height: 1.2em;
 }
 
