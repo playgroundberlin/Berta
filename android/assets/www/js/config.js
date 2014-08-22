@@ -24,7 +24,7 @@ var TOURS = {
     [52.51155900, 13.42684300, SDPATH + '/berta/bonaparte.mp3',      'Bonaparte',                  'Gigolo Vagabundo',     SDPATH + 'bonaparte.png'],
     [52.51093900, 13.42501500, SDPATH + '/berta/doering.mp3',        'Dirty Doering',              'Bye Bye Bar 25',       SDPATH + 'doering.png'],
     [52.50839200, 13.42892100, SDPATH + '/berta/rummelsnuff.mp3',    'Rummelsnuff',                'Winterlied',           SDPATH + 'rummelsnuff.png'],
-    [52.49927600, 13.42049700, SDPATH + '/berta/pitchtuner.mp3',     'Pitchtuner ',                 'Unity Wins',           SDPATH + 'pitchtuner.png'],
+    [52.49927600, 13.42049700, SDPATH + '/berta/pitchtuner.mp3',     'Pitchtuner',                 'Unity Wins',           SDPATH + 'pitchtuner.png'],
     [52.49827100, 13.42440000, SDPATH + '/berta/simonnejones.mp3',   'Simonne Jones',              'We Are Young',         SDPATH + 'simonnejones.png'],
     [52.49550000, 13.42014300, SDPATH + '/berta/yukazu.mp3',         'Yukazu',                     'Rote Äpfel',           SDPATH + 'yukazu.png'],
     [52.47942169, 13.43147278, SDPATH + '/berta/pauline-andres.mp3', 'Pauline Andrès',             'Fuck you french girl', SDPATH + 'pauline-andres.png']
