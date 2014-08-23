@@ -13,7 +13,7 @@ var HWPORT = 50000;
 
 var TOURS = {
   "default": [
-    [52.55464600, 13.39834200, SDPATH + 'jeansteam.mp3',      'Jeans Team',                 'Lolita Dröhn',         SDPATH + 'jeansteam.png'],
+    [52.54133, 13.403462, SDPATH + 'jeansteam.mp3',      'Jeans Team',                 'Lolita Dröhn',         SDPATH + 'jeansteam.png'],
     [52.54522600, 13.41231100, SDPATH + 'nylon.mp3',          'Nylon',                      'Schönhauser Allee',    SDPATH + 'nylon.png'],
     [52.53887000, 13.42433800, SDPATH + 'dra-q.mp3',          'Dra-Q',                      'Mitsommernacht',       SDPATH + 'dra-q.png'],
     [52.53977900, 13.43593300, SDPATH + 'berlinskibeat.mp3',  'Berlinskibeat',              'Nacht in Berlin',      SDPATH + 'berlinskibeat.png'],
