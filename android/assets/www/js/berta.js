@@ -67,7 +67,7 @@
 
   function dir(heading, position, destination, landscape) {
     var actual, target, direction;
-    actual = landscape ? heading - 90 : heading;
+    actual = landscape ? heading + 90 : heading;
     target = position.bearingTo(destination);
     direction = target - actual;
     if (direction < 0) direction += 360;
