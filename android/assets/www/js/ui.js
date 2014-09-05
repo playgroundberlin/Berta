@@ -148,6 +148,10 @@
     },
     mediaStatus: function (status) {
       this.setState({mediastatus: status});
+      // check if track hast finished, then go to next
+      //if(mediastatus == "4") {
+        //berta.next();
+    //  }
     },
     render: function () {
       var props, mediastatus, playing, stopped, children;
