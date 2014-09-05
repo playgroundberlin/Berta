@@ -104,3 +104,16 @@ a:visited {
 .message-screen .audio-controls .stop-btn {}
 
 .message-screen .audio-controls .stop-btn.disabled {}
+
+#hidden-btn{
+  position: absolute;
+  float: left;
+  padding: 0;
+  margin: 0;
+  width: 150px;
+  height: 150px;
+}
+
+#app{
+  position: absolute;
+}

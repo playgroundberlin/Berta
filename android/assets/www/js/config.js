@@ -29,10 +29,15 @@ var TOURS = {
     [52.49550000, 13.42014300, SDPATH + 'yukazu.mp3',         'Yukazu',                     'Rote Äpfel',           SDPATH + 'yukazu.png'],
     [52.47942169, 13.43147278, SDPATH + 'pauline-andres.mp3', 'Pauline Andrès',             'Fuck you french girl', SDPATH + 'pauline-andres.png']
   ],
-  "test": [
+  "sberg-test": [
     [52.483512, 13.363395, SDPATH + 'test1.mp3',          'Test 1',                     'Schöneberg 1',         SDPATH + 'jeansteam.png'],
     [52.483538, 13.361378, SDPATH + 'test2.mp3',          'Test 2',                     'Schöneberg 2',         SDPATH + 'nylon.png'],
     [52.485969, 13.361206, SDPATH + 'test3.mp3',          'Test 3',                     'Schöneberg 3',         SDPATH + 'berlinskibeat.png']
+  ],
+  "pberg-test": [
+    [52.52809900, 13.42511600, SDPATH + 'test1.mp3',          'Test 1',                     'Schöneberg 1',         SDPATH + 'jeansteam.png'],
+    [52.52781500, 13.42683800, SDPATH + 'test2.mp3',          'Test 2',                     'Schöneberg 2',         SDPATH + 'nylon.png'],
+    [52.52710100, 13.42715000, SDPATH + 'test3.mp3',          'Test 3',                     'Schöneberg 3',         SDPATH + 'berlinskibeat.png']
   ]
 };
 

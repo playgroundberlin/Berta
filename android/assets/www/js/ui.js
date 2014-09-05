@@ -328,6 +328,13 @@
         });
       }
 
+      var wake = new Media('/storage/extSdCard/berta/wake.mp3', function () {});
+
+      // Play the short dummy sound every 10 minutes, in order to prevent the music box from going to sleep
+      setInterval(function () {
+        wake.play();
+      }, 10 * 60 * 1000);
+
       // Default mode (NAVIGATING)
       return CompassScreen({message: props.messages.distance, berta: berta});
     }
