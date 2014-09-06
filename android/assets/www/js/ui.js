@@ -148,10 +148,15 @@
     },
     mediaStatus: function (status) {
       this.setState({mediastatus: status});
-      // check if track hast finished, then go to next
-      //if(mediastatus == "4") {
-        //berta.next();
-    //  }
+
+      // Check if track hast finished, then go proceed with the tour
+      var props = this.props;
+
+      console.log(status);
+
+      if (status == Media.MEDIA_STOPPED && props.handler) {
+        props.handler();
+      }
     },
     render: function () {
       var props, mediastatus, playing, stopped, children;
@@ -331,13 +336,6 @@
           }
         });
       }
-
-      var wake = new Media('/storage/extSdCard/berta/wake.mp3', function () {});
-
-      // Play the short dummy sound every 10 minutes, in order to prevent the music box from going to sleep
-      setInterval(function () {
-        wake.play();
-      }, 10 * 60 * 1000);
 
       // Default mode (NAVIGATING)
       return CompassScreen({message: props.messages.distance, berta: berta});
