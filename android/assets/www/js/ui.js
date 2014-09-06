@@ -148,10 +148,15 @@
     },
     mediaStatus: function (status) {
       this.setState({mediastatus: status});
-      // check if track hast finished, then go to next
-      //if(mediastatus == "4") {
-        //berta.next();
-    //  }
+
+      // Check if track hast finished, then go proceed with the tour
+      var props = this.props;
+
+      console.log(status);
+
+      if (status == Media.MEDIA_STOPPED && props.handler) {
+        props.handler();
+      }
     },
     render: function () {
       var props, mediastatus, playing, stopped, children;
