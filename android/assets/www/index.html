@@ -43,6 +43,15 @@
     function onDeviceReady() {
       Insomnia.enable(); // No sleep till…
 
+      var noop = function () {};
+      var wake = new Media(SDPATH + 'wake.mp3', noop);
+
+      // Play a short dummy sound every 10 minutes
+      // in order to prevent the music box from going to sleep
+      setInterval(function () {
+        wake.play();
+      }, 10 * 60 * 1000);
+
       // Setup/configuration
 
       var config = {
