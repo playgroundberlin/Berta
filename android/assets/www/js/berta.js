@@ -33,10 +33,11 @@
       return {
         lat:    item[0],
         lon:    item[1],
-        src:    item[2],
-        artist: item[3],
-        title:  item[4],
-        imgsrc: item[5]
+        radius: item[2],
+        src:    item[3],
+        artist: item[4],
+        title:  item[5],
+        imgsrc: item[6]
       };
     });
 
@@ -46,6 +47,7 @@
 
     this.progress   = -1; // tour location index (location number)
     this.destination = null; // next tour location (LatLon)
+    this.radius = null; // individual distance to location
 
     // Continuously updated tracking information
 
@@ -62,6 +64,8 @@
   Berta.NAVIGATING  = 1; // on the way to the next location
   Berta.AT_LOCATION = 2; // currently at a tour/sound location
   Berta.FINISHED    = 3; // finished the tour
+
+  var limit = null; // global variable for radius
 
   Berta.prototype = Object.create(EventEmitter.prototype);
 
@@ -80,13 +84,17 @@
   }
 
   Berta.prototype.start = function start() {
-    var tracker, lscape, limit;
+    var tracker, lscape;
 
     tracker = this.tracker;
     lscape = (this.config.orientation === 'landscape');
-    limit = this.config.distlimit;
 
     this.goto(0); // move on to the first tour location
+
+    //limit = this.config.distlimit;
+    limit = this.radius;
+    console.info("Radius:" +limit);
+
 
     // Set up position and heading tracking
 
@@ -166,8 +174,14 @@
 
     if (!place) return false;
 
+    // update radius
+    limit = this.radius;
+    console.info("Radius:" +limit);
+
     this.destination = new LatLon(place.lat, place.lon);
     this.progress = i;
+    this.radius = place.radius;
+    console.info(place.radius);
 
     position = this.position;
     destination = this.destination;

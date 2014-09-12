@@ -13,32 +13,32 @@ var HWPORT = 50000;
 
 var TOURS = {
   "tour1": [
-    [52.541898, 13.403592, SDPATH + 'jeansteam.mp3',      'Jeans Team',                 'Lolita Dröhn',         SDPATH + 'jeansteam.png'],
-    [52.545226, 13.412311, SDPATH + 'nylon.mp3',          'Nylon',                      'Schönhauser Allee',    SDPATH + 'nylon.png'],
-    [52.538870, 13.424338, SDPATH + 'dra-q.mp3',          'Dra-Q',                      'Mitsommernacht',       SDPATH + 'dra-q.png'],
-    [52.539575, 13.436428, SDPATH + 'berlinskibeat.mp3',  'Berlinskibeat',              'Nacht in Berlin',      SDPATH + 'berlinskibeat.png'],
-    [52.536676, 13.432341, SDPATH + 'tonikater.mp3',      'Toni Kater',                 'Fuchslied',            SDPATH + 'tonikater.png'],
-    [52.521166, 13.413264, SDPATH + 'tresen.mp3',         'Der Singende Tresen',        'Alexanderplatz',       SDPATH + 'tresen.png'],
-    [52.511632, 13.426854, SDPATH + 'doering.mp3',        'Dirty Doering',              'Bye Bye Bar 25',       SDPATH + 'doering.png'],
-    [52.508653, 13.450873, SDPATH + 'koletzki.mp3',       'Oliver Koletzki feat. Fran', 'Warschauer Strasse',   SDPATH + 'koletzki.png'],
-    [52.507230, 13.455905, SDPATH + 'panda.mp3',          'Panda',                      'Hier bleiben',         SDPATH + 'panda.png'],
+    [52.541898, 13.403592, 20, SDPATH + 'jeansteam.mp3',      'Jeans Team',                 'Lolita Dröhn',         SDPATH + 'jeansteam.png'],
+    [52.545226, 13.412311, 20, SDPATH + 'nylon.mp3',          'Nylon',                      'Schönhauser Allee',    SDPATH + 'nylon.png'],
+    [52.538870, 13.424338, 20, SDPATH + 'dra-q.mp3',          'Dra-Q',                      'Mitsommernacht',       SDPATH + 'dra-q.png'],
+    [52.539575, 13.436428, 20, SDPATH + 'berlinskibeat.mp3',  'Berlinskibeat',              'Nacht in Berlin',      SDPATH + 'berlinskibeat.png'],
+    [52.536676, 13.432341, 20, SDPATH + 'tonikater.mp3',      'Toni Kater',                 'Fuchslied',            SDPATH + 'tonikater.png'],
+    [52.521166, 13.413264, 50, SDPATH + 'tresen.mp3',         'Der Singende Tresen',        'Alexanderplatz',       SDPATH + 'tresen.png'],
+    [52.511632, 13.426854, 20, SDPATH + 'doering.mp3',        'Dirty Doering',              'Bye Bye Bar 25',       SDPATH + 'doering.png'],
+    [52.508653, 13.450873, 20, SDPATH + 'koletzki.mp3',       'Oliver Koletzki feat. Fran', 'Warschauer Strasse',   SDPATH + 'koletzki.png'],
+    [52.507230, 13.455905, 20, SDPATH + 'panda.mp3',          'Panda',                      'Hier bleiben',         SDPATH + 'panda.png'],
 ],
 "tour2": [
-    [52.50839200, 13.42892100, SDPATH + 'rummelsnuff.mp3',    'Rummelsnuff',                'Winterlied',           SDPATH + 'rummelsnuff.png'],
-    [52.49927600, 13.42049700, SDPATH + 'pitchtuner.mp3',     'Pitchtuner',                 'Unity Wins',           SDPATH + 'pitchtuner.png'],
-    [52.49827100, 13.42440000, SDPATH + 'simonnejones.mp3',   'Simonne Jones',              'We Are Young',         SDPATH + 'simonnejones.png'],
-    [52.49550000, 13.42014300, SDPATH + 'yukazu.mp3',         'Yukazu',                     'Rote Äpfel',           SDPATH + 'yukazu.png'],
-    [52.47942169, 13.43147278, SDPATH + 'pauline-andres.mp3', 'Pauline Andrès',             'Fuck you french girl', SDPATH + 'pauline-andres.png']
+    [52.50839200, 13.42892100, 20, SDPATH + 'rummelsnuff.mp3',    'Rummelsnuff',                'Winterlied',           SDPATH + 'rummelsnuff.png'],
+    [52.49927600, 13.42049700, 20, SDPATH + 'pitchtuner.mp3',     'Pitchtuner',                 'Unity Wins',           SDPATH + 'pitchtuner.png'],
+    [52.49827100, 13.42440000, 20, SDPATH + 'simonnejones.mp3',   'Simonne Jones',              'We Are Young',         SDPATH + 'simonnejones.png'],
+    [52.49550000, 13.42014300, 20, SDPATH + 'yukazu.mp3',         'Yukazu',                     'Rote Äpfel',           SDPATH + 'yukazu.png'],
+    [52.47942169, 13.43147278, 20, SDPATH + 'pauline-andres.mp3', 'Pauline Andrès',             'Fuck you french girl', SDPATH + 'pauline-andres.png']
   ],
   "sberg-test": [
-    [52.483512, 13.363395, SDPATH + 'test1.mp3',          'Test 1',                     'Schöneberg 1',         SDPATH + 'jeansteam.png'],
-    [52.483538, 13.361378, SDPATH + 'test2.mp3',          'Test 2',                     'Schöneberg 2',         SDPATH + 'nylon.png'],
-    [52.485969, 13.361206, SDPATH + 'test3.mp3',          'Test 3',                     'Schöneberg 3',         SDPATH + 'berlinskibeat.png']
+    [52.483512, 13.363395, 20, SDPATH + 'test1.mp3',          'Test 1',                     'Schöneberg 1',         SDPATH + 'jeansteam.png'],
+    [52.483538, 13.361378, 20, SDPATH + 'test2.mp3',          'Test 2',                     'Schöneberg 2',         SDPATH + 'nylon.png'],
+    [52.485969, 13.361206, 20, SDPATH + 'test3.mp3',          'Test 3',                     'Schöneberg 3',         SDPATH + 'berlinskibeat.png']
   ],
   "pberg-test": [
-    [52.52809900, 13.42511600, SDPATH + 'test1.mp3',          'Test 1',                     'Schöneberg 1',         SDPATH + 'jeansteam.png'],
-    [52.52781500, 13.42683800, SDPATH + 'test2.mp3',          'Test 2',                     'Schöneberg 2',         SDPATH + 'nylon.png'],
-    [52.52710100, 13.42715000, SDPATH + 'test3.mp3',          'Test 3',                     'Schöneberg 3',         SDPATH + 'berlinskibeat.png']
+    [52.52809900, 13.42511600, 20, SDPATH + 'test1.mp3',          'Test 1',                     'Schöneberg 1',         SDPATH + 'jeansteam.png'],
+    [52.52781500, 13.42683800, 20, SDPATH + 'test2.mp3',          'Test 2',                     'Schöneberg 2',         SDPATH + 'nylon.png'],
+    [52.52710100, 13.42715000, 20, SDPATH + 'test3.mp3',          'Test 3',                     'Schöneberg 3',         SDPATH + 'berlinskibeat.png']
   ]
 };
 
