@@ -47,7 +47,7 @@ var TOURS = {
 var MESSAGES = {
   disoriented: 'Ich habe die Orientierung verloren. Bitte bringt mich ans Tageslicht und habt etwas Geduld mit mir.',
   distance: 'Noch {{distance}} mal in die Pedale treten',
-  announcement: 'Wir sind da. Macht es euch bequem.',
+  announcement: 'Wir sind da. Macht es euch bequem. In 30 Sekunden geht\'s los.',
   voila: [
     '',
     '',
@@ -60,6 +60,11 @@ var MESSAGES = {
     'Wollt ihr Wurzeln schlagen oder was?',
     'Einen hab ich noch.',
     'Schon müde?',
+    'Also ich habe schon viele Dates gehabt, aber das hier...',
+    'Also ich kann noch!',
+    'Oma würde sagen: Wer rastet, der rostet.',
+    'Am Ende gibt\'s nen kaltes Bier, versprochen!',
+    'Ich dachte ich wäre hier die alte Dame.',
     'Hopp hopp!'
   ],
   goodbye: 'Es war echt schön mit euch. Bitte bringt mich zurück nach Hause.'

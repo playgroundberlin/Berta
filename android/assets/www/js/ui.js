@@ -307,7 +307,7 @@
         return MessageScreen({
           key: 'ns-announce',
           message: text(props.messages.announcement),
-          duration: 8000,
+          duration: 30000,
           handler: function () {
             navigator.setState({mode: Navigator.PLAY});
           }
