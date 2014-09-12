@@ -22,7 +22,7 @@ package com.playgroundberlin.berta;
 import android.os.Bundle;
 import org.apache.cordova.*;
 
-public class Berta extends CordovaActivity 
+public class Berta extends CordovaActivity
 {
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -34,4 +34,3 @@ public class Berta extends CordovaActivity
         //super.loadUrl("file:///android_asset/www/index.html");
     }
 }
-

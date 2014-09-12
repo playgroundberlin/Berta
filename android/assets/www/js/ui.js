@@ -127,6 +127,10 @@
         this.mediaStatus
       );
       this.setState({media: media});
+
+      // Set volume to max
+      this.state.media.setVolume('1.0');
+
       setTimeout(function () {
         media.play();
       }, 800)
