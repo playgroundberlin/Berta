@@ -47,7 +47,7 @@ var TOURS = {
 var MESSAGES = {
   disoriented: 'Ich habe die Orientierung verloren. Bitte bringt mich ans Tageslicht und habt etwas Geduld mit mir.',
   distance: 'Noch {{distance}} mal in die Pedale treten',
-  announcement: 'Wir sind da. Macht es euch bequem. In 30 Sekunden geht\'s los.',
+  announcement: 'Wir sind da. Macht es euch bequem. In 45 Sekunden geht\'s los.',
   voila: [
     '',
     '',
